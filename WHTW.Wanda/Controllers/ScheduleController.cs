@@ -13,8 +13,8 @@ namespace WHTW.Wanda.Controllers
     public class ScheduleController : ApiController
     {
         [HttpGet]
-        [Route("hospital/{hospitalId}/schedule")]
-        public IHttpActionResult List(Guid hospitalId, string date = null)
+        [Route("schedule")]
+        public IHttpActionResult List(string date = null)
         {
             using (var dbContext = new AppContext())
             {
@@ -23,7 +23,24 @@ namespace WHTW.Wanda.Controllers
                     dateFilter = DateTime.Now.Date;
                 else
                     dateFilter = Convert.ToDateTime(date.Replace("-", "/"));
-                return Ok(dbContext.Schedule.Where(a => a.Date.Date == dateFilter).ToList());
+                var list = dbContext
+                    .Schedule
+                    .Include("Hospital")
+                    .ToList()
+                    .Where(a => a.Date.Date == dateFilter)
+                    .Select(a => new
+                    {
+                        CreatedAt = a.CreatedAt,
+                        FromTime = a.Date.TimeOfDay,
+                        Hospital = new Hospital
+                        {
+                            Id = a.Hospital.Id,
+                            CreatedAt = a.Hospital.CreatedAt,
+                            Name = a.Hospital.Name
+                        },
+                        Id = a.Id
+                    });
+                return Ok(list);
             }
         }
 
