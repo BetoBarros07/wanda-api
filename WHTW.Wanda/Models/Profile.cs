@@ -81,7 +81,7 @@ namespace WHTW.Wanda.Models
         [Required]
         public string ExtraInfos { get; set; }
 
-        public int Idade { get; set; }
+        public int Age { get; set; }
 
         public virtual User User { get; set; }
     }
