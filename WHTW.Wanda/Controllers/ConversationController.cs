@@ -46,6 +46,14 @@ namespace WHTW.Wanda.Controllers
                     UserId = loggedUserId
                 };
                 dbContext.Conversation.Add(conversation);
+                dbContext.Message.Add(new Message
+                {
+                    Id = Guid.NewGuid(),
+                    ConversationId = conversation.Id,
+                    FromUser = false,
+                    Message1 = "Oi Carol, como posso lhe ajudar hoje?",
+                    CreatedAt = DateTime.Now
+                });
                 dbContext.SaveChanges();
                 return Created("/conversation/" + conversation.Id + "/messages", conversation);
             }
