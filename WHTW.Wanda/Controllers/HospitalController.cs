@@ -7,6 +7,7 @@ namespace WHTW.Wanda.Controllers
     using Models;
 
     [RoutePrefix("api")]
+    [Authorize(Roles = "Patient")]
     public class HospitalController : ApiController
     {
         [HttpGet]

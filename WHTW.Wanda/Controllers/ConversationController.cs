@@ -1,14 +1,27 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Http;
 
 namespace WHTW.Wanda.Controllers
 {
     using Models;
 
-    [Authorize]
     [RoutePrefix("api")]
+    [Authorize(Roles = "Patient")]
     public class ConversationController : ApiController
     {
+        [HttpGet]
+        [Route("conversation")]
+        public IHttpActionResult List()
+        {
+            var loggedUserId = Util.GetUserId();
+            using (var dbContext = new AppContext())
+            {
+                var list = dbContext.Conversation.Where(a => a.UserId == loggedUserId);
+                return Ok(list.ToList());
+            }
+        }
+
         [HttpPost]
         [Route("conversation")]
         public IHttpActionResult Create()

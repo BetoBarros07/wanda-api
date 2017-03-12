@@ -8,8 +8,8 @@ namespace WHTW.Wanda.Controllers
     using Models;
     using ViewModels.Schedule;
 
-    [Authorize]
     [RoutePrefix("api")]
+    [Authorize(Roles = "Patient")]
     public class ScheduleController : ApiController
     {
         [HttpGet]

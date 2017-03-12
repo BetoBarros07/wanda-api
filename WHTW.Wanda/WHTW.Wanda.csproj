@@ -130,6 +130,7 @@
     <Compile Include="Controllers\EspecializationController.cs" />
     <Compile Include="Controllers\HospitalController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Filters\ModelStateValidAttribute.cs" />
     <Compile Include="Models\AppContext.cs" />

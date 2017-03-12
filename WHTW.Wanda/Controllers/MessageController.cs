@@ -8,8 +8,8 @@ namespace WHTW.Wanda.Controllers
     using Models;
     using ViewModels.Message;
 
-    [Authorize]
     [RoutePrefix("api")]
+    [Authorize(Roles = "Patient")]
     public class MessageController : ApiController
     {
         [HttpPost]

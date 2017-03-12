@@ -36,6 +36,9 @@ namespace WHTW.Wanda.Security
                     identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
                     identity.AddClaim(new Claim("id", user.Id.ToString()));
 
+                    var role = user.IsDoctor ? "Doctor" : "Patient";
+                    identity.AddClaim(new Claim(ClaimTypes.Role, role));
+
                     var principal = new GenericPrincipal(identity, null);
                     Thread.CurrentPrincipal = principal;
 
