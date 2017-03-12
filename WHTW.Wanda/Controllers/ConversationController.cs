@@ -17,8 +17,18 @@ namespace WHTW.Wanda.Controllers
             var loggedUserId = Util.GetUserId();
             using (var dbContext = new AppContext())
             {
-                var list = dbContext.Conversation.Where(a => a.UserId == loggedUserId);
-                return Ok(list.ToList());
+                var list = dbContext
+                    .Conversation
+                    .Where(a => a.UserId == loggedUserId)
+                    .ToList()
+                    .Select(a => new Conversation
+                    {
+                        FinishDate = a.FinishDate,
+                        Id = a.Id,
+                        StartedDate = a.StartedDate,
+                        UserId = a.UserId
+                    });
+                return Ok(list);
             }
         }
 
