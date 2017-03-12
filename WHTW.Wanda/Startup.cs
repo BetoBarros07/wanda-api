@@ -43,7 +43,7 @@ namespace WHTW.Wanda
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/api/security/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromHours(2),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(7),
                 Provider = new AuthorizationServerProvider()
             };
             app.UseOAuthAuthorizationServer(OAuthServerOptions);

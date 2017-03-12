@@ -17,6 +17,8 @@ namespace WHTW.Wanda.Models
 
         public Guid ConversationId { get; set; }
 
+        public bool FromUser { get; set; }
+
         public virtual Conversation Conversation { get; set; }
     }
 }

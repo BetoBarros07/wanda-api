@@ -32,7 +32,7 @@ namespace WHTW.Wanda.Controllers
                 var profile = dbContext.Profile.FirstOrDefault(a => a.Id == id);
                 if (profile == null)
                     return NotFound();
-                var conversationHistory = dbContext.Conversation.Where(a => a.UserId == profile.UserId);
+                var conversationHistory = dbContext.Conversation.Where(a => a.UserId == profile.UserId).ToList();
                 return Ok(new
                 {
                     profile = profile,

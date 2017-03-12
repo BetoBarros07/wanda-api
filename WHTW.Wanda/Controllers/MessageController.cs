@@ -13,18 +13,23 @@ namespace WHTW.Wanda.Controllers
     public class MessageController : ApiController
     {
         [HttpPost]
-        [Route("conversartion/{convesationId}/message")]
+        [Route("conversartion/{conversationId}/message")]
         [ModelStateValid]
-        public IHttpActionResult Create(Guid convesationId, CreateMessage model)
+        public IHttpActionResult Create(Guid conversationId, CreateMessage model)
         {
             using (var appContext = new AppContext())
             {
-                appContext.Message.Add(model.ToEntity(convesationId));
-                appContext.SaveChanges();
-                return Created("/conversation/" + convesationId + "message", new
+                appContext.Message.Add(model.ToEntity(conversationId));
+                var botMessage = new Message
                 {
-
-                });
+                    Id = Guid.NewGuid(),
+                    ConversationId = conversationId,
+                    FromUser = false,
+                    Message1 = "Não há respostas disponíveis!"
+                };
+                appContext.Message.Add(botMessage);
+                appContext.SaveChanges();
+                return Created("/conversation/" + conversationId + "message", botMessage);
             }
         }
 
