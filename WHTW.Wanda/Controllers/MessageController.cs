@@ -13,7 +13,7 @@ namespace WHTW.Wanda.Controllers
     public class MessageController : ApiController
     {
         [HttpPost]
-        [Route("conversartion/{conversationId}/message")]
+        [Route("conversation/{conversationId}/message")]
         [ModelStateValid]
         public IHttpActionResult Create(Guid conversationId, CreateMessage model)
         {
@@ -34,7 +34,7 @@ namespace WHTW.Wanda.Controllers
         }
 
         [HttpGet]
-        [Route("conversartion/{convesationId}/message")]
+        [Route("conversation/{convesationId}/message")]
         public IHttpActionResult List(Guid convesationId)
         {
             using (var appContext = new AppContext())
