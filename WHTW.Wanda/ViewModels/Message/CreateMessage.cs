@@ -15,7 +15,8 @@ namespace WHTW.Wanda.ViewModels.Message
                 Id = Guid.NewGuid(),
                 ConversationId = convesationId,
                 Message1 = Message,
-                FromUser = true
+                FromUser = true,
+                CreatedAt = DateTime.Now
             };
         }
     }

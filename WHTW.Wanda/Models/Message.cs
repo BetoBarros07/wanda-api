@@ -19,6 +19,8 @@ namespace WHTW.Wanda.Models
 
         public bool FromUser { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
         public virtual Conversation Conversation { get; set; }
     }
 }

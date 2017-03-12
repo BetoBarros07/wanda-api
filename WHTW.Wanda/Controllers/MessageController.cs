@@ -25,7 +25,8 @@ namespace WHTW.Wanda.Controllers
                     Id = Guid.NewGuid(),
                     ConversationId = conversationId,
                     FromUser = false,
-                    Message1 = "Não há respostas disponíveis!"
+                    Message1 = "Não há respostas disponíveis!",
+                    CreatedAt = DateTime.Now
                 };
                 appContext.Message.Add(botMessage);
                 appContext.SaveChanges();
@@ -34,13 +35,34 @@ namespace WHTW.Wanda.Controllers
         }
 
         [HttpGet]
-        [Route("conversation/{convesationId}/message")]
-        public IHttpActionResult List(Guid convesationId)
+        [Route("conversation/{conversationId}/message")]
+        public IHttpActionResult List(Guid conversationId)
         {
             using (var appContext = new AppContext())
             {
-                var conversation = appContext.Conversation.Include("Message").FirstOrDefault(a => a.Id == convesationId);
-                return Ok(conversation);
+                var conversation = appContext.Conversation.FirstOrDefault(a => a.Id == conversationId);
+                var messageList = appContext
+                    .Message
+                    .Where(b => b.ConversationId == conversationId)
+                    .OrderBy(b => b.CreatedAt)
+                    .ToList()
+                    .Select(a => new Message
+                    {
+                        ConversationId = a.ConversationId,
+                        CreatedAt = a.CreatedAt,
+                        FromUser = a.FromUser,
+                        Id = a.Id,
+                        Message1 = a.Message1
+                    });
+                var retorno = new Conversation
+                {
+                    FinishDate = conversation.FinishDate,
+                    Id = conversation.Id,
+                    Message = messageList.ToList(),
+                    StartedDate = conversation.StartedDate,
+                    UserId = conversation.UserId
+                };
+                return Ok(retorno);
             }
         }
     }
