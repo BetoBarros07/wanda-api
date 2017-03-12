@@ -128,6 +128,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ConversationController.cs" />
     <Compile Include="Controllers\EspecializationController.cs" />
+    <Compile Include="Controllers\HospitalController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Filters\ModelStateValidAttribute.cs" />
@@ -159,7 +160,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

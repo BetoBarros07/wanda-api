@@ -22,7 +22,7 @@ namespace WHTW.Wanda.Controllers
                 if (string.IsNullOrEmpty(date))
                     dateFilter = DateTime.Now.Date;
                 else
-                    dateFilter = Convert.ToDateTime(date);
+                    dateFilter = Convert.ToDateTime(date.Replace("-", "/"));
                 return Ok(dbContext.Schedule.Where(a => a.Date.Date == dateFilter).ToList());
             }
         }
