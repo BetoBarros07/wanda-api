@@ -29,7 +29,7 @@ namespace WHTW.Wanda.Controllers
                 };
                 appContext.Message.Add(botMessage);
                 appContext.SaveChanges();
-                return Created("/conversation/" + conversationId + "message", botMessage);
+                return Created("/conversation/" + conversationId + "/message", botMessage);
             }
         }
 
