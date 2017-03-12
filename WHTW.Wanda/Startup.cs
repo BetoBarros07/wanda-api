@@ -29,6 +29,8 @@ namespace WHTW.Wanda
             jsonSettings.Formatting = Formatting.Indented;
             jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             jsonSettings.PreserveReferencesHandling = PreserveReferencesHandling.None;
+            jsonSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
             config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

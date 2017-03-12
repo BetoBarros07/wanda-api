@@ -13,13 +13,13 @@ namespace WHTW.Wanda.Models
 
         public Guid UserId { get; set; }
 
-        public short Genero { get; set; }
+        public Gender Gender { get; set; }
 
-        public DateTime DataNascimento { get; set; }
+        public DateTime Birthdate { get; set; }
 
-        public int CivilStatus { get; set; }
+        public CivilStatus CivilStatus { get; set; }
 
-        public int Racial { get; set; }
+        public Racial Racial { get; set; }
 
         public int QtChildren { get; set; }
 
@@ -80,6 +80,8 @@ namespace WHTW.Wanda.Models
         [Column(TypeName = "text")]
         [Required]
         public string ExtraInfos { get; set; }
+
+        public int Idade { get; set; }
 
         public virtual User User { get; set; }
     }

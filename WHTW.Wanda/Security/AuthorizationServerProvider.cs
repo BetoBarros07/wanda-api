@@ -60,11 +60,15 @@ namespace WHTW.Wanda.Security
         {
             if (!_user.IsDoctor)
             {
-                System.Guid? conversationId = null;
+                System.Guid conversationId;
                 if (_conversation != null)
                     conversationId = _conversation.Id;
+                else
+                    conversationId = System.Guid.Empty;
                 context.AdditionalResponseParameters.Add("conversationId", conversationId); 
             }
+            context.AdditionalResponseParameters.Add("name", _user.Name);
+            context.AdditionalResponseParameters.Add("id", _user.Id);
             return base.TokenEndpoint(context);
         }
     }

@@ -135,6 +135,7 @@
     <Compile Include="Filters\ModelStateValidAttribute.cs" />
     <Compile Include="Models\AppContext.cs" />
     <Compile Include="Models\Conversation.cs" />
+    <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Especialization.cs" />
     <Compile Include="Models\Hospital.cs" />
     <Compile Include="Models\Message.cs" />

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
@@ -12,33 +12,29 @@ namespace WHTW.Wanda.Controllers
     {
         [HttpGet]
         [Route("profile")]
-        public IHttpActionResult List(string rg = null)
+        public IHttpActionResult GetById(string rg = null)
         {
-            using (var dbContext = new AppContext())
-            {
-                IQueryable<Profile> query = dbContext.Profile;
-                if (!string.IsNullOrEmpty(rg))
-                    query = query.Where(a => a.RG.StartsWith(rg));
-                return Ok(query.ToList());
-            }
-        }
+            Profile profile;
 
-        [HttpGet]
-        [Route("profile/{id}")]
-        public IHttpActionResult GetById(Guid id)
-        {
             using (var dbContext = new AppContext())
             {
-                var profile = dbContext.Profile.FirstOrDefault(a => a.Id == id);
+                profile = dbContext.Profile.FirstOrDefault(a => a.RG == rg);
+                profile.User = null;
                 if (profile == null)
                     return NotFound();
-                var conversationHistory = dbContext.Conversation.Where(a => a.UserId == profile.UserId).ToList();
-                return Ok(new
-                {
-                    profile = profile,
-                    conversationHistory = conversationHistory
-                });
             }
+            List<Conversation> conversationHistory;
+            using (var dbContext = new AppContext())
+                conversationHistory = dbContext.Conversation.Where(a => a.UserId == profile.UserId).ToList();
+            User user;
+            using (var dbContext = new AppContext())
+                user = dbContext.User.FirstOrDefault(a => a.RG == rg);
+            return Ok(new
+            {
+                user = user,
+                profile = profile,
+                conversationHistory = conversationHistory
+            });
         }
     }
 }
