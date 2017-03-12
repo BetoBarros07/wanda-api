@@ -32,12 +32,7 @@ namespace WHTW.Wanda.Controllers
                     {
                         CreatedAt = a.CreatedAt,
                         FromTime = a.Date.TimeOfDay,
-                        Hospital = new Hospital
-                        {
-                            Id = a.Hospital.Id,
-                            CreatedAt = a.Hospital.CreatedAt,
-                            Name = a.Hospital.Name
-                        },
+                        Hospital = a.Hospital.Name,
                         Id = a.Id
                     });
                 return Ok(list);
