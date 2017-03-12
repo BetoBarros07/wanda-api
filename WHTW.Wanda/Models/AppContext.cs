@@ -10,6 +10,8 @@ namespace WHTW.Wanda.Models
         public AppContext()
             : base("name=AppContext")
         {
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<Conversation> Conversation { get; set; }
