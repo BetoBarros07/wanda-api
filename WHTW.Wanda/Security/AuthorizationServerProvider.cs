@@ -10,6 +10,9 @@ namespace WHTW.Wanda.Security
 {
     public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        private User _user;
+        private Conversation _conversation;
+
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
@@ -35,6 +38,8 @@ namespace WHTW.Wanda.Security
                     identity.AddClaim(new Claim(ClaimTypes.Name, user.Name));
                     identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
                     identity.AddClaim(new Claim("id", user.Id.ToString()));
+                    _user = user;
+                    _conversation = dbContext.Conversation.FirstOrDefault(a => a.UserId == user.Id && a.FinishDate == null);
 
                     var role = user.IsDoctor ? "Doctor" : "Patient";
                     identity.AddClaim(new Claim(ClaimTypes.Role, role));
@@ -49,6 +54,18 @@ namespace WHTW.Wanda.Security
             {
                 context.SetError("invalid_grant", "Failed to login, please try again!");
             }
+        }
+
+        public override Task TokenEndpoint(OAuthTokenEndpointContext context)
+        {
+            if (!_user.IsDoctor)
+            {
+                System.Guid? conversationId = null;
+                if (_conversation != null)
+                    conversationId = _conversation.Id;
+                context.AdditionalResponseParameters.Add("conversationId", conversationId); 
+            }
+            return base.TokenEndpoint(context);
         }
     }
 }
