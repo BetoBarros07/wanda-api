@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace WHTW.Wanda.Controllers
@@ -47,6 +44,18 @@ namespace WHTW.Wanda.Controllers
                 };
                 dbContext.Schedule.Add(schedule);
                 return Created("/me/schedules", schedule);
+            }
+        }
+
+        [HttpGet]
+        [Route("me/schedule")]
+        public IHttpActionResult ListPerUser()
+        {
+            using (var dbContext = new AppContext())
+            {
+                var userId = Util.GetUserId();
+                var list = dbContext.Schedule.Where(a => a.UserId == userId);
+                return Ok(list.ToList());
             }
         }
     }
