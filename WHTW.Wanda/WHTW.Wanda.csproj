@@ -143,6 +143,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="ViewModels\Message\CreateMessage.cs" />
+    <Compile Include="ViewModels\Schedule\CreateSchedule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
